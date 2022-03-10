@@ -14,7 +14,7 @@ export function Header() {
           </Link>
           <Link href="#" passHref>
             <li className='p-2 cursor-pointer flex items-center gap-4 text-lg font-normal'><BsPersonFill size={22}/>Characters</li>
-          </Link>
+          </Link> 
           <Link href="#" passHref>
             <li className='p-2 rounded-md cursor-pointer flex items-center gap-4 text-lg font-normal'><BsBookFill size={22}/>Comics</li>
           </Link>
