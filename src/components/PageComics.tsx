@@ -11,7 +11,7 @@ export function PageHome() {
     const timestamp = Date.now();
     const formatHash = `${timestamp}2a4b85951d73a572e94a755d4262a654df6ea9b605805841a2d5bf33286642e479718a54`
     const Hash = crypto.MD5(formatHash)
-    api.get(`events/271/characters?limit=100&ts=${timestamp}&apikey=05805841a2d5bf33286642e479718a54&hash=${Hash}
+    api.get(`comics?titleStartsWith=amazing%20s&limit=100&ts=${timestamp}&apikey=05805841a2d5bf33286642e479718a54&hash=${Hash}
     `).then(response => {
       const heroes = response.data.data.results
 
@@ -30,7 +30,7 @@ export function PageHome() {
 
       <div className="flex flex-col w-full gap-4">
         <strong className="text-white text-2xl">Characters</strong>
-        <div className="grid grid-cols-4 grid-rows-6 gap-2 w-full">
+        <div className="grid grid-cols-10 grid-rows-6 gap-2 w-full">
         
         {!!isLoading ? (
           <span>Loading</span>

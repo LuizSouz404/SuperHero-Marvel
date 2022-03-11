@@ -4,8 +4,8 @@ import { GiLightSabers, GiBookshelf, GiPickOfDestiny } from 'react-icons/gi';
 
 export function Header() {
   return (
-    <header className="static w-60 min-h-screen bg-gray-800 shadow-md p-4">
-      <div className="flex flex-col gap-10 h-full w-full px-4">
+    <header className=" w-80 min-h-screen bg-gray-800 shadow-md p-4">
+      <div className="fixed flex flex-col gap-10 h-full w-56 px-4">
         <img className="w-full" src="/logo.png" alt="Marvel" />
 
         <ul className='flex flex-col gap-1 text-white px-2'>
