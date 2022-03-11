@@ -11,6 +11,7 @@
   "dependencies": {
     "axios": "^0.26.1",
     "crypto-js": "^4.1.1",
+    "eslint-plugin-react-hooks": "^4.2.1-rc.2-next-72a933d28-20220309",
     "next": "12.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
