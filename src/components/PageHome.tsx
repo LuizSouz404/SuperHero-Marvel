@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import { api } from '../service/api'
 import crypto from 'crypto-js';
-import { RequestHeroes } from "../utils/request";
 
 export function PageHome() {
   const [isLoading, setIsLoading] = useState(true);
@@ -23,13 +22,13 @@ export function PageHome() {
   }, []);
 
   return (
-    <div className="flex flex-col w-full px-10 py-4 gap-6 items-center">
+    <div className="flex flex-col w-full ml-60 px-10 py-4 gap-6 items-center">
       <div className="flex w-full h-96 rounded-lg overflow-hidden bg-marvel-background bg-center bg-cover">
-        <h1 className="w-full h-full bg-black/75 flex items-center justify-center text-8xl font-black text-white">Acervo  MARVEL</h1>
+        <h1 className="w-full h-full bg-black/75 flex text-center items-center justify-center text-8xl font-black text-white">Acervo  MARVEL</h1>
       </div>
 
       <div className="flex flex-col w-full gap-4">
-        <strong className="text-white text-2xl">Characters</strong>
+        <strong className="text-white text-center text-2xl">Characters</strong>
         <div className="grid grid-cols-4 grid-rows-6 gap-2 w-full">
         
         {!!isLoading ? (
