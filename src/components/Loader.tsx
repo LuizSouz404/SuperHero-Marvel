@@ -31,7 +31,7 @@ const pathVariants = {
 
 export function Loader() {
   return (
-    <div className="w-screen h-screen absolute z-20 bg-red-600 flex items-center justify-center">
+    <div className="w-screen h-screen absolute z-20 top-0 left-0 bg-red-600 flex items-center justify-center">
 
       <motion.svg id="svg"version="1.1" variants={svgVariants} initial="hidden" animate="visible" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="400" height="160.78125" viewBox="0, 0, 400,160.78125">
         <g id="svgg">

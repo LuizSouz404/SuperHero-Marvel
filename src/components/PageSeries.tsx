@@ -33,7 +33,7 @@ export function PageSeries() {
       </div>
 
       <div className="flex flex-col w-full gap-4">
-        <strong className="text-white text-center text-2xl">Events</strong>
+        <strong className="text-white text-center text-2xl">Series</strong>
         <div className="grid grid-cols-5 grid-rows-6 gap-2 w-full">
         
         {!!isLoading ? (
@@ -42,7 +42,7 @@ export function PageSeries() {
           <>
             {hero?.map((hero, index) => (
               <div className={`flex relative aspect-square w-full flex-col gap-2 rounded-md overflow-hidden`} key={index}>
-                <span className="z-10 w-full h-full bg-black/25 text-white text-bold text-2xl p-4 text-center flex items-center justify-center">{hero.title}</span>
+                <span className="opacity-50 transition-opacity hover:opacity-100 z-10 w-full h-full bg-black/25 text-white text-bold text-2xl p-4 text-center flex items-center justify-center">{hero.title}</span>
                 <img className="w-full h-full object-cover absolute z-0" src={`${hero.thumbnail.path}.${hero.thumbnail.extension}`}/>
               </div>
             ))}

@@ -34,9 +34,6 @@ export function PageHome() {
 
   return (
     <>
-      {!!isLoading ? (
-        <Loader />
-      ) : (
         <div className="flex flex-col w-full ml-60 px-10 py-4 gap-6 items-center">
           <div className="flex w-full h-96 rounded-lg overflow-hidden bg-marvel-background bg-center bg-cover">
             <h1 className="w-full h-full bg-black/75 flex text-center items-center justify-center text-8xl font-black text-white">Acervo  MARVEL</h1>
@@ -46,17 +43,22 @@ export function PageHome() {
             <strong className="text-white text-center text-2xl">Characters who participated in the event: Secret Wars II</strong>
             <div className="grid grid-cols-4 grid-rows-6 gap-2 w-full">
             
-              {hero?.map((hero, index) => (
-                <div className={`flex relative w-full h-56 flex-col gap-2 rounded-md overflow-hidden`} key={index}>
-                  <span className="z-10 w-full h-full bg-black/25 text-white text-bold text-2xl text-center p-4 flex items-center justify-center">{hero.name}</span>
-                  <img className="w-full h-full object-cover absolute z-0" src={`${hero.thumbnail.path}.${hero.thumbnail.extension}`}/>
-                </div>
-              ))}
+              {!!isLoading ? (
+                <Loader />
+              ) : (
+                <>
+                  {hero?.map((hero, index) => (
+                    <div className={`flex relative w-full h-56 flex-col gap-2 rounded-md overflow-hidden`} key={index}>
+                      <span className="opacity-50 transition-opacity hover:opacity-100 z-10 w-full h-full bg-black/25 text-white text-bold text-2xl text-center p-4 flex items-center justify-center">{hero.name}</span>
+                      <img className="w-full h-full object-cover absolute z-0" src={`${hero.thumbnail.path}.${hero.thumbnail.extension}`}/>
+                    </div>
+                  ))}
+                </>
+              )}
               
             </div>
           </div>
         </div>
-      )}
     </>
   )
 }

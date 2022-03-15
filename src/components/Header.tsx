@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { BsPersonFill, BsBookFill,BsPencilFill, BsHouse } from 'react-icons/bs';
-import { GiLightSabers, GiBookshelf, GiPickOfDestiny } from 'react-icons/gi';
+import { GiLightSabers, GiBookshelf } from 'react-icons/gi';
 import { SearchInput } from './SearchInput';
 
 export function Header() {
@@ -33,9 +33,6 @@ export function Header() {
           </Link>
           <Link href="/series" passHref>
             <li className={`${currentPath === "series" ? 'bg-red-600 shadow-red-600/50 shadow-md': ''} p-2 rounded-md cursor-pointer flex items-center gap-4 text-lg font-normal`}><GiBookshelf size={22}/>Series</li>
-          </Link>
-          <Link href="/stories" passHref>
-            <li className={`${currentPath === "stories" ? 'bg-red-600 shadow-red-600/50 shadow-md': ''} p-2 rounded-md cursor-pointer flex items-center gap-4 text-lg font-normal`}><GiPickOfDestiny size={22}/>Stories</li>
           </Link>
         </ul>
       </div>
