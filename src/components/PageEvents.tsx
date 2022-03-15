@@ -2,9 +2,15 @@ import { useEffect, useState } from "react"
 import { api } from '../service/api'
 import crypto from 'crypto-js';
 
+interface IEvents {
+  title: string
+  id: number
+  thumbnail: { path: string, extension: string}
+}
+
 export function PageEvents() {
   const [isLoading, setIsLoading] = useState(true);
-  const [hero, setHero] = useState<[]>();  
+  const [hero, setHero] = useState<IEvents[]>();  
   
   useEffect(() => {    
     const timestamp = Date.now();

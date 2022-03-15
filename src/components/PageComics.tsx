@@ -2,9 +2,15 @@ import { useEffect, useState } from "react"
 import { api } from '../service/api'
 import crypto from 'crypto-js';
 
+interface IComics {
+  title: string
+  id: number
+  thumbnail: { path: string, extension: string}
+}
+
 export function PageComics() {
   const [isLoading, setIsLoading] = useState(true);
-  const [hero, setHero] = useState<[]>();  
+  const [hero, setHero] = useState<IComics[]>();  
   
   useEffect(() => {    
     const timestamp = Date.now();
