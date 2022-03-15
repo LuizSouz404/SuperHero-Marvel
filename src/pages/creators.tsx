@@ -1,16 +1,16 @@
 import type { NextPage } from 'next'
 import { Header } from '../components/Header';
-import { PageEvents } from '../components/PageEvents';
+import { PageCreators } from '../components/PageCreators';
 
-const Events: NextPage = () => {
+const Creators: NextPage = () => {
 
   return (
     <div className="min-h-screen h-full w-full flex">
       <Header />
       
-      <PageEvents />
+      <PageCreators />
     </div>
   )
 }
 
-export default Events
+export default Creators

@@ -17,8 +17,7 @@ export function PageHome() {
         const urlImage = characters.thumbnail.path.split("/");
         const nameImage = urlImage[urlImage.length - 1];
         return (
-          nameImage !== "image_not_available" &&
-          characters.thumbnail.extension === "jpg"
+          nameImage === "image_not_available" ? characters.thumbnail.path = "/without" : `${characters.thumbnail.path}.${characters.thumbnail.extension}`
         );
       });
 
