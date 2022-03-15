@@ -49,7 +49,7 @@ export function PageComics() {
           <>
             {hero?.map((hero, index) => (
               <div className={`flex relative w-full aspect-2/1 flex-col gap-2 rounded-md overflow-hidden`} key={index}>
-                <span className="opacity-30 transition-opacity hover:opacity-100 z-10 w-full h-full bg-black/25 text-white text-bold text-2xl p-4 text-center flex items-center justify-center">{hero.title}</span>
+                <span className="opacity-20 transition-opacity hover:opacity-100 z-10 w-full h-full bg-black/25 text-white text-bold text-2xl p-4 text-center flex items-center justify-center">{hero.title}</span>
                 <img className="w-full h-full object-cover absolute z-0" src={`${hero.thumbnail.path}.${hero.thumbnail.extension}`}/>
               </div>
             ))}

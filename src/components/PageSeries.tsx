@@ -4,12 +4,12 @@ import crypto from 'crypto-js';
 import { Loader } from "./Loader";
 
 interface IHeroes {
-  name: string
+  title: string
   id: number
   thumbnail: { path: string, extension: string}
 }
 
-export function PageHome() {
+export function PageSeries() {
   const [isLoading, setIsLoading] = useState(true);
   const [hero, setHero] = useState<IHeroes[]>();  
 
@@ -17,7 +17,7 @@ export function PageHome() {
     const timestamp = Date.now();
     const formatHash = `${timestamp}2a4b85951d73a572e94a755d4262a654df6ea9b605805841a2d5bf33286642e479718a54`
     const Hash = crypto.MD5(formatHash)
-    api.get(`events/271/characters?limit=100&ts=${timestamp}&apikey=05805841a2d5bf33286642e479718a54&hash=${Hash}
+    api.get(`series?limit=100&ts=${timestamp}&apikey=05805841a2d5bf33286642e479718a54&hash=${Hash}
     `).then(response => {
       const heroes = response.data.data.results.filter((characters: { thumbnail: { path: string; extension: string; }; }) => {
         const urlImage = characters.thumbnail.path.split("/");
@@ -46,16 +46,16 @@ export function PageHome() {
           </div>
 
           <div className="flex flex-col w-full gap-4">
-            <strong className="text-white text-center text-2xl">Characters who participated in the event: Secret Wars II</strong>
-            <div className="grid grid-cols-4 grid-rows-6 gap-2 w-full">
+            <strong className="text-white text-center text-2xl">Series</strong>
+            <div className="grid grid-cols-5 grid-rows-6 gap-2 w-full">
             
               {!!isLoading ? (
-                <Loader />
+                <></>
               ) : (
                 <>
                   {hero?.map((hero, index) => (
-                    <div className={`flex relative w-full h-56 flex-col gap-2 rounded-md overflow-hidden`} key={index}>
-                      <span className="opacity-20 transition-opacity hover:opacity-100 z-10 w-full h-full bg-black/25 text-white text-bold text-2xl text-center p-4 flex items-center justify-center">{hero.name}</span>
+                    <div className={`flex relative w-full aspect-square flex-col gap-2 rounded-md overflow-hidden`} key={index}>
+                      <span className="opacity-20 transition-opacity hover:opacity-100 z-10 w-full h-full bg-black/25 text-white text-bold text-2xl text-center p-4 flex items-center justify-center">{hero.title}</span>
                       <img className="w-full h-full object-cover absolute z-0" src={`${hero.thumbnail.path}.${hero.thumbnail.extension}`}/>
                     </div>
                   ))}
