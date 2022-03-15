@@ -13,7 +13,14 @@ export function PageHome() {
     const Hash = crypto.MD5(formatHash)
     api.get(`events/271/characters?limit=100&ts=${timestamp}&apikey=05805841a2d5bf33286642e479718a54&hash=${Hash}
     `).then(response => {
-      const heroes = response.data.data.results
+      const heroes = response.data.data.results.filter((characters: { thumbnail: { path: string; extension: string; }; }) => {
+        const urlImage = characters.thumbnail.path.split("/");
+        const nameImage = urlImage[urlImage.length - 1];
+        return (
+          nameImage !== "image_not_available" &&
+          characters.thumbnail.extension === "jpg"
+        );
+      });
 
       setHero(heroes)
       console.log(response)
@@ -37,7 +44,7 @@ export function PageHome() {
           </div>
 
           <div className="flex flex-col w-full gap-4">
-            <strong className="text-white text-center text-2xl">Characters</strong>
+            <strong className="text-white text-center text-2xl">Characters who participated in the event: Secret Wars II</strong>
             <div className="grid grid-cols-4 grid-rows-6 gap-2 w-full">
             
               {hero?.map((hero, index) => (

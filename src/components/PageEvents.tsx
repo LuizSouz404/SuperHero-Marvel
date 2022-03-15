@@ -12,7 +12,14 @@ export function PageEvents() {
     const Hash = crypto.MD5(formatHash)
     api.get(`events?limit=100&ts=${timestamp}&apikey=05805841a2d5bf33286642e479718a54&hash=${Hash}
     `).then(response => {
-      const heroes = response.data.data.results
+      const heroes = response.data.data.results.filter((characters: { thumbnail: { path: string; extension: string; }; }) => {
+        const urlImage = characters.thumbnail.path.split("/");
+        const nameImage = urlImage[urlImage.length - 1];
+        return (
+          nameImage !== "image_not_available" &&
+          characters.thumbnail.extension === "jpg"
+        );
+      });
 
       setHero(heroes)
     })  
@@ -37,7 +44,7 @@ export function PageEvents() {
             {hero?.map((hero, index) => (
               <div className={`flex relative aspect-square w-full flex-col gap-2 rounded-md overflow-hidden`} key={index}>
                 <span className="z-10 w-full h-full bg-black/25 text-white text-bold text-2xl p-4 text-center flex items-center justify-center">{hero.title}</span>
-                <img className="w-full h-full object-contain absolute z-0" src={`${hero.thumbnail.path}.${hero.thumbnail.extension}`}/>
+                <img className="w-full h-full object-cover absolute z-0" src={`${hero.thumbnail.path}.${hero.thumbnail.extension}`}/>
               </div>
             ))}
           </>
