@@ -1,17 +1,16 @@
 import type { NextPage } from 'next'
 import { Header } from '../components/Header';
-import { Loader } from '../components/Loader';
-import { PageHome } from '../components/PageHome';
+import { PageEvents } from '../components/PageEvents';
 
-const Home: NextPage = () => {
+const Comics: NextPage = () => {
 
   return (
     <div className="min-h-screen h-full w-full flex">
       <Header />
       
-      <PageHome />
+      <PageEvents />
     </div>
   )
 }
 
-export default Home
+export default Comics

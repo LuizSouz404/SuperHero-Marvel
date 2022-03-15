@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { api } from '../service/api'
 import crypto from 'crypto-js';
 
-export function PageComics() {
+export function PageEvents() {
   const [isLoading, setIsLoading] = useState(true);
   const [hero, setHero] = useState<[]>();  
   
@@ -10,7 +10,7 @@ export function PageComics() {
     const timestamp = Date.now();
     const formatHash = `${timestamp}2a4b85951d73a572e94a755d4262a654df6ea9b605805841a2d5bf33286642e479718a54`
     const Hash = crypto.MD5(formatHash)
-    api.get(`comics?dateRange=2000-01-01%2C2022-12-2&limit=100&ts=${timestamp}&apikey=05805841a2d5bf33286642e479718a54&hash=${Hash}
+    api.get(`events?limit=100&ts=${timestamp}&apikey=05805841a2d5bf33286642e479718a54&hash=${Hash}
     `).then(response => {
       const heroes = response.data.data.results
 
@@ -27,7 +27,7 @@ export function PageComics() {
       </div>
 
       <div className="flex flex-col w-full gap-4">
-        <strong className="text-white text-center text-2xl">Comics</strong>
+        <strong className="text-white text-center text-2xl">Events</strong>
         <div className="grid grid-cols-5 grid-rows-6 gap-2 w-full">
         
         {!!isLoading ? (
@@ -35,9 +35,9 @@ export function PageComics() {
         ) : (
           <>
             {hero?.map((hero, index) => (
-              <div className={`flex relative w-full aspect-2/1 flex-col gap-2 rounded-md overflow-hidden`} key={index}>
+              <div className={`flex relative aspect-square w-full flex-col gap-2 rounded-md overflow-hidden`} key={index}>
                 <span className="z-10 w-full h-full bg-black/25 text-white text-bold text-2xl p-4 text-center flex items-center justify-center">{hero.title}</span>
-                <img className="w-full h-full object-cover absolute z-0" src={`${hero.thumbnail.path}.${hero.thumbnail.extension}`}/>
+                <img className="w-full h-full object-contain absolute z-0" src={`${hero.thumbnail.path}.${hero.thumbnail.extension}`}/>
               </div>
             ))}
           </>

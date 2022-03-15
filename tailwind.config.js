@@ -7,7 +7,10 @@ module.exports = {
     extend: {
       backgroundImage: {
         'marvel-background': "url('/marvel.png')",
-      }
+      },
+      aspectRatio: {
+        '2/1': '6 / 10',
+      },
     },
   },
   plugins: [],
