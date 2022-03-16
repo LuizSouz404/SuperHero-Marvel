@@ -16,7 +16,6 @@ interface IHeroes {
 export function SearchInput() {
   const router = useRouter();
   const [, currentPath,] = router.pathname.split("/")
-  console.log(currentPath)
   const searchDynamicPath = currentPath === 'comics' || currentPath === 'series' ? 'titleStartsWith' : 'nameStartsWith';
 
   const [input, setInput] = useState("");
@@ -41,7 +40,6 @@ export function SearchInput() {
           });
     
           setHeros(heroes)
-          console.log(heroes)
         });
       } 
       
