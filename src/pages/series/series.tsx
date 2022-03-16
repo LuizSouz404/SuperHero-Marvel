@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
-import { Header } from '../components/Header';
-import { PageSeries } from '../components/PageSeries';
+import { Header } from '../../components/Header';
+import { PageSeries } from '../../components/PageSeries';
 
 const Series: NextPage = () => {
 

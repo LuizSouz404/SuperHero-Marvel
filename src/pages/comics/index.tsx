@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
-import { Header } from '../components/Header';
-import { PageComics } from '../components/PageComics';
+import { Header } from '../../components/Header';
+import { PageComics } from '../../components/PageComics';
 
 const Comics: NextPage = () => {
 

@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
-import { Header } from '../components/Header';
-import { PageEvents } from '../components/PageEvents';
+import { Header } from '../../components/Header';
+import { PageEvents } from '../../components/PageEvents';
 
 const Events: NextPage = () => {
 
