@@ -3,6 +3,7 @@ import {BsSearch} from 'react-icons/bs';
 import { api } from '../service/api';
 import crypto from 'crypto-js';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 interface IHeroes {
   name?: string
@@ -14,7 +15,8 @@ interface IHeroes {
 
 export function SearchInput() {
   const router = useRouter();
-  const currentPath = router.pathname.replace("/", "");
+  const [, currentPath,] = router.pathname.split("/")
+  console.log(currentPath)
   const searchDynamicPath = currentPath === 'comics' || currentPath === 'series' ? 'titleStartsWith' : 'nameStartsWith';
 
   const [input, setInput] = useState("");
@@ -28,7 +30,7 @@ export function SearchInput() {
 
 
       if(input!=="") {
-        api.get(`${currentPath}?${searchDynamicPath}=${input}&limit=10&ts=${timestamp}&apikey=05805841a2d5bf33286642e479718a54&hash=${Hash}
+        api.get(`${currentPath  === "" ? 'characters' : currentPath }?${searchDynamicPath}=${input}&limit=10&ts=${timestamp}&apikey=05805841a2d5bf33286642e479718a54&hash=${Hash}
         `).then(response => {
           const heroes = response.data.data.results.filter((characters: { thumbnail: { path: string; extension: string; }; }) => {
             const urlImage = characters.thumbnail.path.split("/");
@@ -66,10 +68,12 @@ export function SearchInput() {
       {input !== "" && heros && (
         <ul className='flex flex-col w-full bg-slate-800 rounded-b-md border-red-600 border-t-0 border-2 absolute top-full left-0'>
           {heros?.map((hero, index) => (
-            <li key={index} className={`flex items-center hover:bg-slate-900 cursor-pointer gap-2 px-4 text-ellipsis p-2 overflow-hidden ${heros.length !== index + 1 ? 'border-b-2 border-slate-400/10' : ''}`}>
-              <img className='w-10 h-10 object-cover aspect-square rounded-full' src={`${hero.thumbnail.path}.${hero.thumbnail.extension}`} alt={searchDynamicPath === 'titleStartsWith' ? hero.title : currentPath === "creators" ? hero.firstName : hero.name} />
-              <span className='text-sm text-white text-ellipsis  whitespace-nowrap overflow-hidden w-auto'>{searchDynamicPath === 'titleStartsWith' || currentPath === 'events' ? hero.title : currentPath === "creators" ? hero.firstName : hero.name}</span>
-            </li>
+            <Link href={`characters/${hero.id}`}>
+              <li key={index} className={`flex items-center hover:bg-slate-900 cursor-pointer gap-2 px-4 text-ellipsis p-2 overflow-hidden ${heros.length !== index + 1 ? 'border-b-2 border-slate-400/10' : ''}`}>
+                <img className='w-10 h-10 object-cover aspect-square rounded-full' src={`${hero.thumbnail.path}.${hero.thumbnail.extension}`} alt={searchDynamicPath === 'titleStartsWith' ? hero.title : currentPath === "creators" ? hero.firstName : hero.name} />
+                <span className='text-sm text-white text-ellipsis  whitespace-nowrap overflow-hidden w-auto'>{searchDynamicPath === 'titleStartsWith' || currentPath === 'events' ? hero.title : currentPath === "creators" ? hero.firstName : hero.name}</span>
+              </li>
+            </Link>
           ))}
         </ul>
       )}
