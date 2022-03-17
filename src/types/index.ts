@@ -23,8 +23,20 @@ export type SeriesProp = {
 export type ComicsProp = {
   id: number;
   title: string;
+  description: string;
+  pageCount: number;
+  series: {
+    name: string;
+  };
+  creators: {items: CreatorComicsProp[]};
   thumbnail: {
     extension: string;
     path: string;
   };
 };
+
+export type CreatorComicsProp = {
+  name: string;
+  role: string;
+  resourceURI: string;
+}
