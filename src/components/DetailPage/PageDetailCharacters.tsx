@@ -1,8 +1,8 @@
 import { useRouter } from "next/router"
 import { useEffect, useRef, useState } from "react";
-import { api } from "../service/api";
+import { api } from "../../service/api";
 import crypto from 'crypto-js';
-import { ComicsProp, SeriesProp } from "../types";
+import { ComicsProp, SeriesProp } from "../../types";
 import { motion } from 'framer-motion';
 
 interface IHeroes {

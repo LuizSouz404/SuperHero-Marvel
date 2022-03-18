@@ -1,8 +1,8 @@
 import { useRouter } from "next/router"
 import { useEffect, useRef, useState } from "react";
-import { api } from "../service/api";
+import { api } from "../../service/api";
 import crypto from 'crypto-js';
-import { ComicsProp } from "../types";
+import { ComicsProp } from "../../types";
 import { motion } from 'framer-motion';
 import Link from "next/link";
 
@@ -29,12 +29,15 @@ export function PageDetailComics() {
         const [titleWithoutSeparator,] = comicsData.data.results[0].title.split("(")
         const [titleWithoutDoubleDots,] = titleWithoutSeparator.split(":")
         const [title,] = titleWithoutDoubleDots.split("VOL.")
-        console.log(title);
         const { data: othersComicsData } = await api.get(`comics?titleStartsWith=${title}&ts=${timestamp}&apikey=05805841a2d5bf33286642e479718a54&hash=${Hash}`);
         
-        comicsData.data.results.forEach((characters: { thumbnail: { path: string; extension: string; }; }) => {
+        comicsData.data.results.forEach((characters:any) => {
           const urlImage = characters.thumbnail.path.split("/");
           const nameImage = urlImage[urlImage.length - 1];
+          characters.creators.items.forEach((id: { resourceURI: string; }) => {
+            const newID = id.resourceURI.split("/");
+            id.resourceURI = newID.pop() as string;
+          });
           return (
             nameImage === "image_not_available" ? characters.thumbnail.path = "/withoutpic" : `${characters.thumbnail.path}.${characters.thumbnail.extension}`
           );
@@ -101,9 +104,11 @@ export function PageDetailComics() {
               <span className="text-white font-bold text-lg">
                 {creator.role}
               </span>
-              <span className="text-gray-300">
-                {creator.name}
-              </span>
+              <Link href={`/creators/${creator.resourceURI}`}>
+                <span className="text-gray-300">
+                  {creator.name}
+                </span>
+              </Link>
             </div>
             </>
           ))}
