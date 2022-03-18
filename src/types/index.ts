@@ -19,6 +19,17 @@ export type SeriesProp = {
   };
 };
 
+export type EventProp = {
+  id: number;
+  title: string;
+  description: string;
+  creators: {items: CreatorComicsProp[]};
+  thumbnail: {
+    extension: string;
+    path: string;
+  };
+}
+
 // type for characters comics
 export type ComicsProp = {
   id: number;
@@ -39,4 +50,16 @@ export type CreatorComicsProp = {
   name: string;
   role: string;
   resourceURI: string;
+}
+
+// type for creators
+export type CreatorsProp = {
+  id: number;
+  firstName: string;
+  role: string;
+  thumbnail: {
+    extension: string;
+    path: string;
+  };
+  fullName: string;
 }
