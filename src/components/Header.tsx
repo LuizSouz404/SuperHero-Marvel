@@ -21,7 +21,7 @@ export function Header() {
           </Link>
           <Link href="/characters" passHref>
             <li className={`${currentPath === 'characters' ? 'bg-red-600 shadow-red-600/50 shadow-md': ''} p-2 rounded-md cursor-pointer flex items-center gap-4 text-lg font-normal`}><BsPersonFill size={22}/>Characters</li>
-          </Link> 
+          </Link>
           <Link href="/comics" passHref>
             <li className={`${currentPath === 'comics' ? 'bg-red-600 shadow-red-600/50 shadow-md': ''} p-2 rounded-md cursor-pointer flex items-center gap-4 text-lg font-normal`}><BsBookFill size={22}/>Comics</li>
           </Link>
