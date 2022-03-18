@@ -4,6 +4,7 @@ import crypto from 'crypto-js';
 import Link from "next/link";
 import { ComicsProp } from "../../types";
 import { isImageAvailable } from "../../utils/isImageAvailable";
+import { MiniLoader } from "../miniLoader";
 
 export function PageComics() {
   const [isLoading, setIsLoading] = useState(true);
@@ -39,12 +40,12 @@ export function PageComics() {
 
       <div className="flex flex-col w-full gap-4">
         <strong className="text-white text-center text-2xl">Comics</strong>
-        <div className="grid grid-cols-5 grid-rows-6 gap-2 w-full">
-
         {!!isLoading ? (
-          <span>Loading</span>
+          <div className="w-full flex items-center justify-center">
+            <MiniLoader />
+          </div>
         ) : (
-          <>
+          <div className="grid grid-cols-5 grid-rows-6 gap-2 w-full">
             {comics?.map((comic, index) => (
               <Link href={`/comics/${comic.id}`} passHref key={index}>
                 <div className={`flex relative w-full aspect-2/1 flex-col gap-2 rounded-md overflow-hidden`} key={index}>
@@ -53,10 +54,9 @@ export function PageComics() {
                 </div>
               </Link>
             ))}
-          </>
+          </div>
         )}
 
-        </div>
       </div>
     </div>
   )

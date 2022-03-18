@@ -4,6 +4,7 @@ import crypto from 'crypto-js';
 import Link from "next/link";
 import { EventProp } from "../../types";
 import { isImageAvailable } from "../../utils/isImageAvailable";
+import { MiniLoader } from "../miniLoader";
 
 export function PageEvents() {
   const [isLoading, setIsLoading] = useState(true);
@@ -39,12 +40,13 @@ export function PageEvents() {
 
       <div className="flex flex-col w-full gap-4">
         <strong className="text-white text-center text-2xl">Events</strong>
-        <div className="grid grid-cols-5 grid-rows-6 gap-2 w-full">
 
         {!!isLoading ? (
-          <span>Loading</span>
+          <div className="w-full flex items-center justify-center">
+            <MiniLoader />
+          </div>
         ) : (
-          <>
+          <div className="grid grid-cols-5 grid-rows-6 gap-2 w-full">
             {events?.map((event, index) => (
               <Link href={`/events/${event.id}`} passHref key={index}>
               <div className={`flex relative aspect-square w-full flex-col gap-2 rounded-md overflow-hidden`} key={index}>
@@ -53,10 +55,9 @@ export function PageEvents() {
               </div>
               </Link>
             ))}
-          </>
+          </div>
         )}
 
-        </div>
       </div>
     </div>
   )
