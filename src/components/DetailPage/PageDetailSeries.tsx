@@ -6,17 +6,7 @@ import { CharacterProps, ComicsProp, SeriesProp } from "../../types";
 import { motion } from 'framer-motion';
 import Link from "next/link";
 import { isImageAvailable } from "../../utils/isImageAvailable";
-
-type CreatorsProp = {
-  id: number;
-  firstName: string;
-  role: string;
-  thumbnail: {
-    extension: string;
-    path: string;
-  };
-  fullName: string;
-}
+import { SkeletonSlider } from "../SkeletonSlider";
 
 export function PageDetailSeries() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -50,31 +40,10 @@ export function PageDetailSeries() {
         const { data: comicsData } = await api.get(`series/${slug}/comics?limit=20&ts=${timestamp}&apikey=05805841a2d5bf33286642e479718a54&hash=${Hash}`);
         const { data: charactersData } = await api.get(`series/${slug}/characters?limit=20&ts=${timestamp}&apikey=05805841a2d5bf33286642e479718a54&hash=${Hash}`);
 
-        seriesData.data.results.forEach((characters: { thumbnail: { path: string; extension: string; }; }) => {
-          const urlImage = characters.thumbnail.path.split("/");
-          const nameImage = urlImage[urlImage.length - 1];
-          return (
-            nameImage === "image_not_available" ? characters.thumbnail.path = "/withoutpic" : `${characters.thumbnail.path}.${characters.thumbnail.extension}`
-          );
-        });
-
-        creatorData.data.results.forEach((characters: { thumbnail: { path: string; extension: string; }; }) => {
-          const urlImage = characters.thumbnail.path.split("/");
-          const nameImage = urlImage[urlImage.length - 1];
-          return (
-            nameImage === "image_not_available" ? characters.thumbnail.path = "/withoutpic" : `${characters.thumbnail.path}.${characters.thumbnail.extension}`
-          );
-        });
-        
-        comicsData.data.results.forEach((characters: { thumbnail: { path: string; extension: string; }; }) => {
-          const urlImage = characters.thumbnail.path.split("/");
-          const nameImage = urlImage[urlImage.length - 1];
-          return (
-            nameImage === "image_not_available" ? characters.thumbnail.path = "/withoutpic" : `${characters.thumbnail.path}.${characters.thumbnail.extension}`
-          );
-        });
-
         isImageAvailable(charactersData)
+        isImageAvailable(seriesData)
+        isImageAvailable(comicsData)
+        isImageAvailable(creatorData)
 
         console.log(charactersData)
 
@@ -124,52 +93,9 @@ export function PageDetailSeries() {
       <div className="flex flex-col w-full gap-4">
         {!!isLoading ? (
           <>
-          <div className="flex flex-col w-full gap-4">
-            <strong className="text-white font-semibold text-xl">Comics</strong>
-            <motion.div ref={carouselComics} className="overflow-hidden">
-              <motion.div drag="x" dragConstraints={{right: 0, left: -widthComics}} className="grid grid-cols-auto gap-2 grid-flow-col">
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-2/1 rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-2/1 rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-2/1 rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-2/1 rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-2/1 rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-2/1 rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-2/1 rounded-md`}></div>
-              </motion.div>
-            </motion.div>
-          </div>
-
-          <div className="flex flex-col w-full gap-4">
-            <strong className="text-white font-semibold text-xl">Series</strong>
-            <motion.div className="overflow-hidden">
-              <motion.div drag="x" dragConstraints={{right: 0, left: -0}} className="grid grid-cols-auto gap-2 grid-flow-col">
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-2/1 rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-2/1 rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-2/1 rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-2/1 rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-2/1 rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-2/1 rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-2/1 rounded-md`}></div>
-              </motion.div>
-            </motion.div>
-          </div>
-
-          <div className="flex flex-col w-full gap-4">
-            <div className="flex flex-col w-full gap-4">
-              <strong className="text-white font-semibold text-xl">Events</strong>
-              <motion.div className="overflow-hidden">
-                <motion.div drag="x" dragConstraints={{right: 0, left: -0}} className="grid grid-cols-auto gap-2 grid-flow-col">
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-square rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-square rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-square rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-square rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-square rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-square rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-square rounded-md`}></div>
-                </motion.div>
-              </motion.div>
-            </div>
-          </div>
+            <SkeletonSlider title="Comics"/>
+            <SkeletonSlider title="Series"/>
+            <SkeletonSlider title="Events" isSquare={true}/>
           </>
         ): (
           <>

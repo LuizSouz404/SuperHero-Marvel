@@ -5,6 +5,8 @@ import crypto from 'crypto-js';
 import { ComicsProp } from "../../types";
 import { motion } from 'framer-motion';
 import Link from "next/link";
+import { SkeletonSlider } from "../SkeletonSlider";
+import { isImageAvailable } from "../../utils/isImageAvailable";
 
 export function PageDetailComics() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -42,14 +44,8 @@ export function PageDetailComics() {
             nameImage === "image_not_available" ? characters.thumbnail.path = "/withoutpic" : `${characters.thumbnail.path}.${characters.thumbnail.extension}`
           );
         });
-
-        othersComicsData.data.results.forEach((characters: { thumbnail: { path: string; extension: string; }; }) => {
-          const urlImage = characters.thumbnail.path.split("/");
-          const nameImage = urlImage[urlImage.length - 1];
-          return (
-            nameImage === "image_not_available" ? characters.thumbnail.path = "/withoutpic" : `${characters.thumbnail.path}.${characters.thumbnail.extension}`
-          );
-        });
+        
+        isImageAvailable(othersComicsData)
         
         setComics(comicsData.data.results[0]);
         setOtherComics(othersComicsData.data.results);
@@ -118,17 +114,7 @@ export function PageDetailComics() {
       <div className="flex flex-col w-full gap-4">
         {!!isLoading ? (
           <>
-          <div className="flex flex-col w-full gap-4">
-            <strong className="text-white font-semibold text-xl">Series</strong>
-            <motion.div ref={carouselComics} className="overflow-hidden">
-              <motion.div drag="x" dragConstraints={{right: 0, left: -carouselComics}} className="flex flex-col gap-2">
-                <div className={`bg-slate-600 animate-pulse w-full h-12 aspect-2/1 rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-full h-12 aspect-2/1 rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-full h-12 aspect-2/1 rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-full h-12 aspect-2/1 rounded-md`}></div>
-              </motion.div>
-            </motion.div>
-          </div>
+            <SkeletonSlider title="Series"/>
           </>
         ): (
           <>

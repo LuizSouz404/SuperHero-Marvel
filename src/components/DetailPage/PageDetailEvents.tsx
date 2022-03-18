@@ -5,7 +5,7 @@ import crypto from 'crypto-js';
 import { CharacterProps, ComicsProp, SeriesProp, EventProp } from "../../types";
 import { motion } from 'framer-motion';
 import Link from "next/link";
-import { SkeletonSlider21 } from "../SkeletonSlider21";
+import { SkeletonSlider } from "../SkeletonSlider";
 import { isImageAvailable } from "../../utils/isImageAvailable";
 
 export function PageDetailEvents() {
@@ -89,9 +89,9 @@ export function PageDetailEvents() {
       <div className="flex flex-col w-full gap-4">
         {!!isLoading ? (
           <>
-            <SkeletonSlider21 title="Comics"/>
-            <SkeletonSlider21 title="Series"/>          
-            <SkeletonSlider21 title="Characters" isSquare={true}/>
+            <SkeletonSlider title="Comics"/>
+            <SkeletonSlider title="Series"/>          
+            <SkeletonSlider title="Characters" isSquare={true}/>
           </>
         ): (
           <>

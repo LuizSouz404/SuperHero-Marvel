@@ -2,22 +2,17 @@ import { useRouter } from "next/router"
 import { useEffect, useRef, useState } from "react";
 import { api } from "../../service/api";
 import crypto from 'crypto-js';
-import { ComicsProp, SeriesProp } from "../../types";
+import { CharacterProps, ComicsProp, SeriesProp } from "../../types";
 import { motion } from 'framer-motion';
-
-interface IHeroes {
-  name: string
-  description: string
-  id: number
-  thumbnail: { path: string, extension: string}
-}
+import { isImageAvailable } from "../../utils/isImageAvailable";
+import { SkeletonSlider } from "../SkeletonSlider";
 
 export function PageDetailCharacters() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [widthSeries, setWidthSeries] = useState(0);  
   const [widthComics, setWidthComics] = useState(0);  
   const [widthEvents, setWidthEvents] = useState(0);   
-  const [hero, setHero] = useState<IHeroes>();   
+  const [hero, setHero] = useState<CharacterProps>();   
   const [comics, setComics] = useState<ComicsProp[]>([]);
   const [series, setSeries] = useState<SeriesProp[]>([]); 
   const [events, setEvents] = useState<SeriesProp[]>([]); 
@@ -41,38 +36,11 @@ export function PageDetailCharacters() {
         const { data: seriesData } = await api.get(`characters/${slug}/series?limit=20&ts=${timestamp}&apikey=05805841a2d5bf33286642e479718a54&hash=${Hash}`);
         const { data: comicsData } = await api.get(`characters/${slug}/comics?limit=20&ts=${timestamp}&apikey=05805841a2d5bf33286642e479718a54&hash=${Hash}`);
         const { data: eventsData } = await api.get(`characters/${slug}/events?limit=20&ts=${timestamp}&apikey=05805841a2d5bf33286642e479718a54&hash=${Hash}`);
-               
-        characterData.data.results.forEach((characters: { thumbnail: { path: string; extension: string; }; }) => {
-          const urlImage = characters.thumbnail.path.split("/");
-          const nameImage = urlImage[urlImage.length - 1];
-          return (
-            nameImage === "image_not_available" ? characters.thumbnail.path = "/withoutpic" : `${characters.thumbnail.path}.${characters.thumbnail.extension}`
-            );
-          });
-          
-        seriesData.data.results.forEach((characters: { thumbnail: { path: string; extension: string; }; }) => {
-          const urlImage = characters.thumbnail.path.split("/");
-          const nameImage = urlImage[urlImage.length - 1];
-          return (
-            nameImage === "image_not_available" ? characters.thumbnail.path = "/withoutpic" : `${characters.thumbnail.path}.${characters.thumbnail.extension}`
-          );
-        });
-        
-        comicsData.data.results.forEach((characters: { thumbnail: { path: string; extension: string; }; }) => {
-          const urlImage = characters.thumbnail.path.split("/");
-          const nameImage = urlImage[urlImage.length - 1];
-          return (
-            nameImage === "image_not_available" ? characters.thumbnail.path = "/withoutpic" : `${characters.thumbnail.path}.${characters.thumbnail.extension}`
-          );
-        });
 
-        eventsData.data.results.forEach((characters: { thumbnail: { path: string; extension: string; }; }) => {
-          const urlImage = characters.thumbnail.path.split("/");
-          const nameImage = urlImage[urlImage.length - 1];
-          return (
-            nameImage === "image_not_available" ? characters.thumbnail.path = "/withoutpic" : `${characters.thumbnail.path}.${characters.thumbnail.extension}`
-            );
-          });
+        isImageAvailable(characterData)
+        isImageAvailable(seriesData)
+        isImageAvailable(comicsData)
+        isImageAvailable(eventsData)
 
         setHero(characterData.data.results[0]);
         setSeries(seriesData.data.results);
@@ -121,52 +89,9 @@ export function PageDetailCharacters() {
       <div className="flex flex-col w-full gap-4">
         {!!isLoading ? (
           <>
-          <div className="flex flex-col w-full gap-4">
-            <strong className="text-white font-semibold text-xl">Comics</strong>
-            <motion.div ref={carouselComics} className="overflow-hidden">
-              <motion.div drag="x" dragConstraints={{right: 0, left: -widthComics}} className="grid grid-cols-auto gap-2 grid-flow-col">
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-2/1 rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-2/1 rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-2/1 rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-2/1 rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-2/1 rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-2/1 rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-2/1 rounded-md`}></div>
-              </motion.div>
-            </motion.div>
-          </div>
-
-          <div className="flex flex-col w-full gap-4">
-            <strong className="text-white font-semibold text-xl">Series</strong>
-            <motion.div ref={carouselSeries} className="overflow-hidden">
-              <motion.div drag="x" dragConstraints={{right: 0, left: -widthSeries}} className="grid grid-cols-auto gap-2 grid-flow-col">
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-2/1 rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-2/1 rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-2/1 rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-2/1 rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-2/1 rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-2/1 rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-2/1 rounded-md`}></div>
-              </motion.div>
-            </motion.div>
-          </div>
-
-          <div className="flex flex-col w-full gap-4">
-            <div className="flex flex-col w-full gap-4">
-              <strong className="text-white font-semibold text-xl">Events</strong>
-              <motion.div ref={carouselEvents} className="overflow-hidden">
-                <motion.div drag="x" dragConstraints={{right: 0, left: -widthEvents}} className="grid grid-cols-auto gap-2 grid-flow-col">
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-square rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-square rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-square rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-square rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-square rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-square rounded-md`}></div>
-                <div className={`bg-slate-600 animate-pulse w-52 aspect-square rounded-md`}></div>
-                </motion.div>
-              </motion.div>
-            </div>
-          </div>
+            <SkeletonSlider title="Comics"/>
+            <SkeletonSlider title="Series"/>
+            <SkeletonSlider title="Events"/>
           </>
         ): (
           <>

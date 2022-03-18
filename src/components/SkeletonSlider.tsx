@@ -5,7 +5,7 @@ type SkeletonSlider21Props = {
   isSquare?: boolean;
 }
 
-export function SkeletonSlider21({title ,isSquare = false}: SkeletonSlider21Props) {
+export function SkeletonSlider({title ,isSquare = false}: SkeletonSlider21Props) {
   return (
     <div className="flex flex-col w-full gap-4">
       <strong className="text-white font-semibold text-xl">title</strong>
