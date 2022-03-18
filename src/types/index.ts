@@ -13,6 +13,10 @@ export type CharacterProps = {
 export type SeriesProp = {
   id: number;
   title: string;
+  description: string;
+  startYear: number;
+  endYear: number;
+  creators: {items: CreatorComicsProp[], available: number};
   thumbnail: {
     extension: string;
     path: string;
@@ -23,7 +27,7 @@ export type EventProp = {
   id: number;
   title: string;
   description: string;
-  creators: {items: CreatorComicsProp[]};
+  creators: {items: CreatorComicsProp[], available: number};
   thumbnail: {
     extension: string;
     path: string;
@@ -39,7 +43,7 @@ export type ComicsProp = {
   series: {
     name: string;
   };
-  creators: {items: CreatorComicsProp[]};
+  creators: {items: CreatorComicsProp[], available: number};
   thumbnail: {
     extension: string;
     path: string;

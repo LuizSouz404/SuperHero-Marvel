@@ -38,10 +38,22 @@ export function PageDetailEvents() {
         const { data: comicsData } = await api.get(`events/${slug}/comics?limit=20&ts=${timestamp}&apikey=05805841a2d5bf33286642e479718a54&hash=${Hash}`);
         const { data: charactersData } = await api.get(`events/${slug}/characters?limit=20&ts=${timestamp}&apikey=05805841a2d5bf33286642e479718a54&hash=${Hash}`);
 
-        isImageAvailable(eventsData)
+        eventsData.data.results.forEach((characters:any) => {
+          const urlImage = characters.thumbnail.path.split("/");
+          const nameImage = urlImage[urlImage.length - 1];
+          characters.creators.items.forEach((id: { resourceURI: string; }) => {
+            const newID = id.resourceURI.split("/");
+            id.resourceURI = newID.pop() as string;
+          });
+          return (
+            nameImage === "image_not_available" ? characters.thumbnail.path = "/withoutpic" : `${characters.thumbnail.path}.${characters.thumbnail.extension}`
+          );
+        });
         isImageAvailable(seriesData)
         isImageAvailable(comicsData)
         isImageAvailable(charactersData)
+        
+        console.log(eventsData);
 
         setEvents(eventsData.data.results[0]);
         setSeries(seriesData.data.results);
@@ -86,6 +98,26 @@ export function PageDetailEvents() {
         )}
       </div>
 
+      <div className="flex flex-col w-full">
+        <strong className="text-white font-semibold text-xl"> {events?.creators.available as number > 20 ? `This and much more ${events?.creators.available as number - 20} creators` : "Creators"}</strong>
+        <div className="grid grid-cols-4 gap-5 w-full p-4">
+          {events?.creators.items.map(creator => (
+            <>
+            <div className="flex flex-col gap-2">
+              <span className="text-white font-bold text-lg">
+                {creator.role}
+              </span>
+              <Link href={`/creators/${creator.resourceURI}`}>
+                <span className="text-gray-300">
+                  {creator.name}
+                </span>
+              </Link>
+            </div>
+            </>
+          ))}
+        </div>
+      </div>
+
       <div className="flex flex-col w-full gap-4">
         {!!isLoading ? (
           <>
@@ -123,7 +155,7 @@ export function PageDetailEvents() {
                 {series.length > 0 && (
                   <>
                     {series.map((serie, index) => (
-                      <Link href={`/comics/${serie.id}`}>
+                      <Link href={`/series/${serie.id}`}>
                         <div className={`flex relative w-52 aspect-2/1 flex-col gap-2 rounded-md overflow-hidden`} key={index}>
                           <span className="opacity-20 transition-opacity hover:opacity-100 z-10 w-full h-full bg-black/25 text-white text-bold text-2xl p-4 text-center flex items-center justify-center">{serie.title}</span>
                           <img className="w-full h-full object-cover absolute z-0" src={`${serie.thumbnail.path}.${serie.thumbnail.extension}`}/>
@@ -145,7 +177,7 @@ export function PageDetailEvents() {
                   {characters.length > 0 && (
                     <>
                       {characters.map((character, index) => (
-                        <Link href={`/series/${character.id}`}>
+                        <Link href={`/characters/${character.id}`}>
                           <div className={`flex relative w-52 aspect-square flex-col gap-2 rounded-md overflow-hidden`} key={index}>
                             <span className="opacity-20 transition-opacity hover:opacity-100 z-10 w-full h-full bg-black/25 text-white text-bold text-2xl p-4 text-center flex items-center justify-center">{character.name}</span>
                             <img className="w-full h-full object-cover absolute z-0" src={`${character.thumbnail.path}.${character.thumbnail.extension}`}/>

@@ -15,7 +15,7 @@ export function PageDetailSeries() {
   const [widthComics, setWidthComics] = useState(0);  
   const [widthCharacters, setWidthCharacters] = useState(0);
 
-  const [series, setSeries] = useState<ComicsProp>();
+  const [series, setSeries] = useState<SeriesProp>();
   const [comics, setComics] = useState<ComicsProp[]>([]);
   const [characters, setCharacters] = useState<CharacterProps[]>([]); 
   const [events, setEvents] = useState<SeriesProp[]>([]); 
@@ -36,21 +36,31 @@ export function PageDetailSeries() {
         const Hash = crypto.MD5(formatHash)
         
         const { data: seriesData } = await api.get(`series/${slug}?ts=${timestamp}&apikey=05805841a2d5bf33286642e479718a54&hash=${Hash}`);
-        const { data: creatorData } = await api.get(`series/${slug}/creators?limit=20&ts=${timestamp}&apikey=05805841a2d5bf33286642e479718a54&hash=${Hash}`);
+        const { data: eventsData } = await api.get(`series/${slug}/events?limit=20&ts=${timestamp}&apikey=05805841a2d5bf33286642e479718a54&hash=${Hash}`);
         const { data: comicsData } = await api.get(`series/${slug}/comics?limit=20&ts=${timestamp}&apikey=05805841a2d5bf33286642e479718a54&hash=${Hash}`);
         const { data: charactersData } = await api.get(`series/${slug}/characters?limit=20&ts=${timestamp}&apikey=05805841a2d5bf33286642e479718a54&hash=${Hash}`);
 
         isImageAvailable(charactersData)
-        isImageAvailable(seriesData)
         isImageAvailable(comicsData)
-        isImageAvailable(creatorData)
+        isImageAvailable(eventsData)
 
-        console.log(charactersData)
+        seriesData.data.results.forEach((characters:any) => {
+          const urlImage = characters.thumbnail.path.split("/");
+          const nameImage = urlImage[urlImage.length - 1];
+          characters.creators.items.forEach((id: { resourceURI: string; }) => {
+            const newID = id.resourceURI.split("/");
+            id.resourceURI = newID.pop() as string;
+          });
+          return (
+            nameImage === "image_not_available" ? characters.thumbnail.path = "/withoutpic" : `${characters.thumbnail.path}.${characters.thumbnail.extension}`
+          );
+        });
+        console.log(seriesData)
 
-        setSeries(creatorData.data.results[0]);
+        setSeries(seriesData.data.results[0]);
         setCharacters(charactersData.data.results);
         setComics(comicsData.data.results);
-        setEvents(charactersData.data.results);
+        setEvents(eventsData.data.results);
       } catch (error) {
         console.log(error)
       } finally {
@@ -84,17 +94,38 @@ export function PageDetailSeries() {
             <img className="w-36 aspect-2/1 rounded-sm" src={`${series?.thumbnail.path}.${series?.thumbnail.extension}`} alt={series?.title} />
             <div className="flex justify-center flex-col py-4 px-5 gap-2">
               <h1 className="text-white font-bold text-2xl">{series?.title}</h1>
+              <p className="text-gray-300 ">Star year: {series?.startYear} / End year: {series?.endYear ? series.endYear : "Present"}</p>
               <p className="text-gray-300 ">{series?.description}</p>
             </div>
           </>
         )}
       </div>
 
+      <div className="flex flex-col w-full">
+        <strong className="text-white font-semibold text-xl"> {series?.creators.available as number > 20 ? `This and much more ${series?.creators.available as number - 20} creators` : "Creators"}</strong>
+        <div className="grid grid-cols-4 gap-5 w-full p-4">
+          {series?.creators.items.map(creator => (
+            <>
+            <div className="flex flex-col gap-2">
+              <span className="text-white font-bold text-lg">
+                {creator.role}
+              </span>
+              <Link href={`/creators/${creator.resourceURI}`}>
+                <span className="text-gray-300">
+                  {creator.name}
+                </span>
+              </Link>
+            </div>
+            </>
+          ))}
+        </div>
+      </div>
+
       <div className="flex flex-col w-full gap-4">
         {!!isLoading ? (
           <>
             <SkeletonSlider title="Comics"/>
-            <SkeletonSlider title="Series"/>
+            <SkeletonSlider title="Characters"/>
             <SkeletonSlider title="Events" isSquare={true}/>
           </>
         ): (
@@ -121,13 +152,13 @@ export function PageDetailSeries() {
           </div>
 
           <div className="flex flex-col w-full gap-4">
-            <strong className="text-white font-semibold text-xl">Series</strong>
+            <strong className="text-white font-semibold text-xl">Characters</strong>
             <motion.div ref={carouselSeries} className="overflow-hidden">
               <motion.div drag="x" dragConstraints={{right: 0, left: -carouselSeries}} className="grid grid-cols-auto gap-2 grid-flow-col">
                 {characters.length > 0 && (
                   <>
                     {characters.map((character, index) => (
-                      <Link href={`/comics/${character.id}`}>
+                      <Link href={`/series/${character.id}`}>
                         <div className={`flex relative w-52 aspect-square flex-col gap-2 rounded-md overflow-hidden`} key={index}>
                           <span className="opacity-20 transition-opacity hover:opacity-100 z-10 w-full h-full bg-black/25 text-white text-bold text-2xl p-4 text-center flex items-center justify-center">{character.name}</span>
                           <img className="w-full h-full object-cover absolute z-0" src={`${character.thumbnail.path}.${character.thumbnail.extension}`}/>

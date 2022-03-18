@@ -6,6 +6,7 @@ import { CharacterProps, ComicsProp, SeriesProp } from "../../types";
 import { motion } from 'framer-motion';
 import { isImageAvailable } from "../../utils/isImageAvailable";
 import { SkeletonSlider } from "../SkeletonSlider";
+import Link from "next/link";
 
 export function PageDetailCharacters() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -103,10 +104,12 @@ export function PageDetailCharacters() {
                 {comics.length > 0 && (
                   <>
                     {comics.map((comic, index) => (
-                      <div className={`flex relative w-52 aspect-2/1 flex-col gap-2 rounded-md overflow-hidden`} key={index}>
-                        <span className="opacity-20 transition-opacity hover:opacity-100 z-10 w-full h-full bg-black/25 text-white text-bold text-2xl p-4 text-center flex items-center justify-center">{comic.title}</span>
-                        <img className="w-full h-full object-cover absolute z-0" src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}/>
-                      </div>
+                      <Link href={`/comics/${comic.id}`}>
+                        <div className={`flex relative w-52 aspect-2/1 flex-col gap-2 rounded-md overflow-hidden`} key={index}>
+                          <span className="opacity-20 transition-opacity hover:opacity-100 z-10 w-full h-full bg-black/25 text-white text-bold text-2xl p-4 text-center flex items-center justify-center">{comic.title}</span>
+                          <img className="w-full h-full object-cover absolute z-0" src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}/>
+                        </div>
+                      </Link>
                     ))}
                   </>
                 )}
@@ -121,10 +124,12 @@ export function PageDetailCharacters() {
                 {series.length > 0 && (
                   <>
                     {series.map((serie, index) => (
-                      <div className={`flex relative w-52 aspect-2/1 flex-col gap-2 rounded-md overflow-hidden`} key={index}>
-                        <span className="opacity-20 transition-opacity hover:opacity-100 z-10 w-full h-full bg-black/25 text-white text-bold text-2xl p-4 text-center flex items-center justify-center">{serie.title}</span>
-                        <img className="w-full h-full object-cover absolute z-0" src={`${serie.thumbnail.path}.${serie.thumbnail.extension}`}/>
-                      </div>
+                      <Link href={`/series/${serie.id}`}>
+                        <div className={`flex relative w-52 aspect-2/1 flex-col gap-2 rounded-md overflow-hidden`} key={index}>
+                          <span className="opacity-20 transition-opacity hover:opacity-100 z-10 w-full h-full bg-black/25 text-white text-bold text-2xl p-4 text-center flex items-center justify-center">{serie.title}</span>
+                          <img className="w-full h-full object-cover absolute z-0" src={`${serie.thumbnail.path}.${serie.thumbnail.extension}`}/>
+                        </div>
+                      </Link>
                     ))}            
                   </>
                 )}
@@ -141,10 +146,12 @@ export function PageDetailCharacters() {
                   {events.length > 0 && (
                     <>
                       {events.map((event, index) => (
-                        <div className={`flex relative w-52 aspect-square flex-col gap-2 rounded-md overflow-hidden`} key={index}>
-                          <span className="opacity-20 transition-opacity hover:opacity-100 z-10 w-full h-full bg-black/25 text-white text-bold text-2xl p-4 text-center flex items-center justify-center">{event.title}</span>
-                          <img className="w-full h-full object-cover absolute z-0" src={`${event.thumbnail.path}.${event.thumbnail.extension}`}/>
-                        </div>
+                        <Link href={`/events/${event.id}`}>
+                          <div className={`flex relative w-52 aspect-square flex-col gap-2 rounded-md overflow-hidden`} key={index}>
+                            <span className="opacity-20 transition-opacity hover:opacity-100 z-10 w-full h-full bg-black/25 text-white text-bold text-2xl p-4 text-center flex items-center justify-center">{event.title}</span>
+                            <img className="w-full h-full object-cover absolute z-0" src={`${event.thumbnail.path}.${event.thumbnail.extension}`}/>
+                          </div>
+                        </Link>
                       ))}
                     </>
                   )}
