@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import { Header } from '../../components/Header';
-import { PageDetailEvents } from '../../components/PageDetailEvents';
+import { PageDetailEvents } from '../../components/DetailPage/PageDetailEvents';
 
 const DetailEvents: NextPage = () => {
   return (

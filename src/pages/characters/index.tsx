@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import { Header } from '../../components/Header';
-import { PageCharacters } from '../../components/PageCharacters';
+import { PageCharacters } from '../../components/MainPage/PageCharacters';
 
 const Characters: NextPage = () => {
 

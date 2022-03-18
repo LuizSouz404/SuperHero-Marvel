@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
+import { PageDetailCharacters } from '../../components/DetailPage/PageDetailCharacters';
 import { Header } from '../../components/Header';
-import { PageDetailCharacters } from '../../components/PageDetailCharacters';
 
 const DetailsCharacters: NextPage = () => {
   return (

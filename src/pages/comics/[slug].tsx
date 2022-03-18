@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
+import { PageDetailComics } from '../../components/DetailPage/PageDetailComics';
 import { Header } from '../../components/Header';
-import { PageDetailComics } from '../../components/PageDetailComics';
 
 const DetailsComics: NextPage = () => {
   return (

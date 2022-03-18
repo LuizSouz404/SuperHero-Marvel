@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import { Header } from '../../components/Header';
-import { PageCreators } from '../../components/PageCreators';
+import { PageCreators } from '../../components/MainPage/PageCreators';
 
 const Creators: NextPage = () => {
 
