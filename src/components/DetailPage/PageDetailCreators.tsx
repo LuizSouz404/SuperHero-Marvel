@@ -11,15 +11,15 @@ import { isImageAvailable } from "../../utils/isImageAvailable";
 export function PageDetailCreators() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const [widthSeries, setWidthSeries] = useState(0);  
-  const [widthComics, setWidthComics] = useState(0);  
-  const [widthEvents, setWidthEvents] = useState(0);  
+  const [widthSeries, setWidthSeries] = useState(0);
+  const [widthComics, setWidthComics] = useState(0);
+  const [widthEvents, setWidthEvents] = useState(0);
 
   const [creators, setCreators] = useState<CreatorsProp>();
   const [comics, setComics] = useState<ComicsProp[]>([]);
-  const [series, setSeries] = useState<SeriesProp[]>([]); 
-  const [events, setEvents] = useState<SeriesProp[]>([]); 
-  
+  const [series, setSeries] = useState<SeriesProp[]>([]);
+  const [events, setEvents] = useState<SeriesProp[]>([]);
+
   const router = useRouter()
   const { slug } = router.query;
 
@@ -34,7 +34,7 @@ export function PageDetailCreators() {
         const timestamp = Date.now();
         const formatHash = `${timestamp}2a4b85951d73a572e94a755d4262a654df6ea9b605805841a2d5bf33286642e479718a54`
         const Hash = crypto.MD5(formatHash)
-        
+
         const { data: creatorData } = await api.get(`creators/${slug}?ts=${timestamp}&apikey=05805841a2d5bf33286642e479718a54&hash=${Hash}`);
         const { data: seriesData } = await api.get(`creators/${slug}/series?limit=20&ts=${timestamp}&apikey=05805841a2d5bf33286642e479718a54&hash=${Hash}`);
         const { data: comicsData } = await api.get(`creators/${slug}/comics?limit=20&ts=${timestamp}&apikey=05805841a2d5bf33286642e479718a54&hash=${Hash}`);
@@ -53,16 +53,16 @@ export function PageDetailCreators() {
         console.log(error)
       } finally {
         setIsLoading(false);
-        carouselComics.current ? setWidthComics(carouselComics.current.scrollWidth - carouselComics.current.offsetWidth) :setWidthComics(0); 
-        carouselSeries.current ? setWidthSeries(carouselSeries.current.scrollWidth - carouselSeries.current.offsetWidth) :setWidthSeries(0); 
-        carouselEvents.current ? setWidthEvents(carouselEvents.current.scrollWidth - carouselEvents.current.offsetWidth) :setWidthEvents(0); 
+        carouselComics.current ? setWidthComics(carouselComics.current.scrollWidth - carouselComics.current.offsetWidth) :setWidthComics(0);
+        carouselSeries.current ? setWidthSeries(carouselSeries.current.scrollWidth - carouselSeries.current.offsetWidth) :setWidthSeries(0);
+        carouselEvents.current ? setWidthEvents(carouselEvents.current.scrollWidth - carouselEvents.current.offsetWidth) :setWidthEvents(0);
       }
     }
 
     fetchSingleCharacter()
   }, [slug]);
 
-  return (    
+  return (
     <div className="flex flex-col w-full px-10 pl-72 py-4 gap-6 items-center">
       <div className="flex w-full">
         {!!isLoading ? (
@@ -125,13 +125,13 @@ export function PageDetailCreators() {
                 {series.length > 0 && (
                   <>
                     {series.map((serie, index) => (
-                      <Link href={`/series/${serie.id}`}>
+                      <Link href={`/series/${serie.id}`} passHref key={index}>
                         <div className={`flex relative w-52 aspect-2/1 flex-col gap-2 rounded-md overflow-hidden`} key={index}>
                           <span className="opacity-20 transition-opacity hover:opacity-100 z-10 w-full h-full bg-black/25 text-white text-bold text-2xl p-4 text-center flex items-center justify-center">{serie.title}</span>
                           <img className="w-full h-full object-cover absolute z-0" src={`${serie.thumbnail.path}.${serie.thumbnail.extension}`}/>
                         </div>
                       </Link>
-                    ))}            
+                    ))}
                   </>
                 )}
               </motion.div>
@@ -147,7 +147,7 @@ export function PageDetailCreators() {
                   {events.length > 0 && (
                     <>
                       {events.map((event, index) => (
-                        <Link href={`/events/${event.id}`}>
+                        <Link href={`/events/${event.id}`} passHref key={index}>
                           <div className={`flex relative w-52 aspect-square flex-col gap-2 rounded-md overflow-hidden`} key={index}>
                             <span className="opacity-20 transition-opacity hover:opacity-100 z-10 w-full h-full bg-black/25 text-white text-bold text-2xl p-4 text-center flex items-center justify-center">{event.title}</span>
                             <img className="w-full h-full object-cover absolute z-0" src={`${event.thumbnail.path}.${event.thumbnail.extension}`}/>
