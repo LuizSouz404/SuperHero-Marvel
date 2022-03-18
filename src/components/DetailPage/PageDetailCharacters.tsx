@@ -13,7 +13,7 @@ export function PageDetailCharacters() {
   const [widthSeries, setWidthSeries] = useState(0);  
   const [widthComics, setWidthComics] = useState(0);  
   const [widthEvents, setWidthEvents] = useState(0);   
-  const [hero, setHero] = useState<CharacterProps>();   
+  const [character, setCharacter] = useState<CharacterProps>();   
   const [comics, setComics] = useState<ComicsProp[]>([]);
   const [series, setSeries] = useState<SeriesProp[]>([]); 
   const [events, setEvents] = useState<SeriesProp[]>([]); 
@@ -43,7 +43,7 @@ export function PageDetailCharacters() {
         isImageAvailable(comicsData)
         isImageAvailable(eventsData)
 
-        setHero(characterData.data.results[0]);
+        setCharacter(characterData.data.results[0]);
         setSeries(seriesData.data.results);
         setComics(comicsData.data.results);
         setEvents(eventsData.data.results);
@@ -78,10 +78,10 @@ export function PageDetailCharacters() {
           </>
         ): (
           <>
-            <img className="w-36 h-36 rounded-sm" src={`${hero?.thumbnail.path}.${hero?.thumbnail.extension}`} alt={hero?.name} />
+            <img className="w-36 h-36 rounded-sm" src={`${character?.thumbnail.path}.${character?.thumbnail.extension}`} alt={character?.name} />
             <div className="flex justify-center flex-col py-4 px-5 gap-2">
-              <h1 className="text-white font-bold text-2xl">{hero?.name}</h1>
-              <p className="text-gray-300 ">{hero?.description}</p>
+              <h1 className="text-white font-bold text-2xl">{character?.name}</h1>
+              <p className="text-gray-300 ">{character?.description}</p>
             </div>
           </>
         )}

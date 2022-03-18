@@ -12,7 +12,7 @@ export function PageDetailEvents() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [widthSeries, setWidthSeries] = useState(0);  
   const [widthComics, setWidthComics] = useState(0);  
-  const [widthEvents, setWidthEvents] = useState(0);   
+  const [widthCharacters, setWidthCharacters] = useState(0);   
   const [characters, setCharacters] = useState<CharacterProps[]>([]);
   const [comics, setComics] = useState<ComicsProp[]>([]);
   const [series, setSeries] = useState<SeriesProp[]>([]); 
@@ -23,7 +23,7 @@ export function PageDetailEvents() {
 
   const carouselSeries = useRef() as React.MutableRefObject<HTMLDivElement>;
   const carouselComics = useRef() as React.MutableRefObject<HTMLDivElement>;
-  const carouselEvents = useRef() as React.MutableRefObject<HTMLDivElement>;
+  const carouselCharacters = useRef() as React.MutableRefObject<HTMLDivElement>;
 
   useEffect(() => {
     async function fetchSingleCharacter(): Promise<void> {
@@ -65,7 +65,7 @@ export function PageDetailEvents() {
         setIsLoading(false);
         carouselComics.current ? setWidthComics(carouselComics.current.scrollWidth - carouselComics.current.offsetWidth) :setWidthComics(0); 
         carouselSeries.current ? setWidthSeries(carouselSeries.current.scrollWidth - carouselSeries.current.offsetWidth) :setWidthSeries(0); 
-        carouselEvents.current ? setWidthEvents(carouselEvents.current.scrollWidth - carouselEvents.current.offsetWidth) :setWidthEvents(0); 
+        carouselCharacters.current ? setWidthCharacters(carouselCharacters.current.scrollWidth - carouselCharacters.current.offsetWidth) :setWidthCharacters(0); 
       }
     }
 
@@ -151,7 +151,7 @@ export function PageDetailEvents() {
           <div className="flex flex-col w-full gap-4">
             <strong className="text-white font-semibold text-xl">Series</strong>
             <motion.div ref={carouselSeries} className="overflow-hidden">
-              <motion.div drag="x" dragConstraints={{right: 0, left: -carouselSeries}} className="grid grid-cols-auto gap-2 grid-flow-col">
+              <motion.div drag="x" dragConstraints={{right: 0, left: -widthSeries}} className="grid grid-cols-auto gap-2 grid-flow-col">
                 {series.length > 0 && (
                   <>
                     {series.map((serie, index) => (
@@ -171,8 +171,8 @@ export function PageDetailEvents() {
           <div className="flex flex-col w-full gap-4">
             <div className="flex flex-col w-full gap-4">
               <strong className="text-white font-semibold text-xl">Characters</strong>
-              <motion.div className="overflow-hidden">
-                <motion.div drag="x" dragConstraints={{right: 0, left: -0}} className="grid grid-cols-auto grid-cols-[13rem] gap-2 grid-flow-col">
+              <motion.div ref={carouselCharacters} className="overflow-hidden">
+                <motion.div drag="x" dragConstraints={{right: 0, left: -widthCharacters}} className="grid grid-cols-auto grid-cols-[13rem] gap-2 grid-flow-col">
 
                   {characters.length > 0 && (
                     <>

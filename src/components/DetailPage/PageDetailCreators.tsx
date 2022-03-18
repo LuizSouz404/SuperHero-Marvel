@@ -121,7 +121,7 @@ export function PageDetailCreators() {
           <div className="flex flex-col w-full gap-4">
             <strong className="text-white font-semibold text-xl">Series</strong>
             <motion.div ref={carouselSeries} className="overflow-hidden">
-              <motion.div drag="x" dragConstraints={{right: 0, left: -carouselSeries}} className="grid grid-cols-auto gap-2 grid-flow-col">
+              <motion.div drag="x" dragConstraints={{right: 0, left: -widthSeries}} className="grid grid-cols-auto gap-2 grid-flow-col">
                 {series.length > 0 && (
                   <>
                     {series.map((serie, index) => (
@@ -141,8 +141,8 @@ export function PageDetailCreators() {
           <div className="flex flex-col w-full gap-4">
             <div className="flex flex-col w-full gap-4">
               <strong className="text-white font-semibold text-xl">Events</strong>
-              <motion.div className="overflow-hidden">
-                <motion.div drag="x" dragConstraints={{right: 0, left: -0}} className="grid grid-cols-auto grid-cols-[13rem] gap-2 grid-flow-col">
+              <motion.div ref={carouselEvents} className="overflow-hidden">
+                <motion.div drag="x" dragConstraints={{right: 0, left: -widthEvents}} className="grid grid-cols-auto grid-cols-[13rem] gap-2 grid-flow-col">
 
                   {events.length > 0 && (
                     <>

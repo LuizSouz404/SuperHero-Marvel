@@ -11,6 +11,7 @@ import { isImageAvailable } from "../../utils/isImageAvailable";
 export function PageDetailComics() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [widthComics, setWidthComics] = useState(0);
+  const [widthOtherComics, setWidthOtherComics] = useState(0);
   const [comics, setComics] = useState<ComicsProp>();
   const [otherComics, setOtherComics] = useState<ComicsProp[]>([]);
   
@@ -18,6 +19,7 @@ export function PageDetailComics() {
   const { slug } = router.query;
 
   const carouselComics = useRef() as React.MutableRefObject<HTMLDivElement>;
+  const carouselOtherComics = useRef() as React.MutableRefObject<HTMLDivElement>;
 
   useEffect(() => {
     async function fetchSingleCharacter(): Promise<void> {
@@ -54,6 +56,7 @@ export function PageDetailComics() {
       } finally {
         setIsLoading(false);
         carouselComics.current ? setWidthComics(carouselComics.current.scrollWidth - carouselComics.current.offsetWidth) :setWidthComics(0); 
+        carouselOtherComics.current ? setWidthOtherComics(carouselOtherComics.current.scrollWidth - carouselOtherComics.current.offsetWidth) :setWidthOtherComics(0); 
         console.log(otherComics.length);
       }
     }
@@ -121,7 +124,7 @@ export function PageDetailComics() {
             <div className="flex flex-col w-full gap-4">
               <strong className="text-white font-semibold text-xl">Series</strong>
               <motion.div ref={carouselComics} className="overflow-hidden">
-                <motion.div drag="x" dragConstraints={{right: 0, left: -carouselComics}} className="flex flex-col gap-2">
+                <motion.div drag="x" dragConstraints={{right: 0, left: -widthComics}} className="flex flex-col gap-2">
 
                   <div className={`flex relative flex-col gap-2 rounded-md overflow-hidden`}>
                     <span className="opacity-50 transition-opacity hover:opacity-100 z-10 w-full h-full bg-black/25 text-white text-bold text-2xl p-4 flex items-start ">{comics?.series.name}</span>
@@ -135,8 +138,8 @@ export function PageDetailComics() {
               <div className="flex flex-col w-full gap-4">
                 <div className="flex flex-col w-full gap-4">
                   <strong className="text-white font-semibold text-xl">Other Comics</strong>
-                  <motion.div ref={carouselComics} className="overflow-hidden">
-                    <motion.div drag="x" dragConstraints={{right: 0, left: -widthComics}} className="grid grid-cols-auto grid-cols-[13rem] gap-2 grid-flow-col">
+                  <motion.div ref={carouselOtherComics} className="overflow-hidden">
+                    <motion.div drag="x" dragConstraints={{right: 0, left: -widthOtherComics}} className="grid grid-cols-auto grid-cols-[13rem] gap-2 grid-flow-col">
                       {otherComics?.map((OComics, index) => (
                         <Link href={`/comics/${OComics.id}`} passHref>
                           <div className={`flex relative w-52 aspect-2/1 flex-col gap-2 rounded-md overflow-hidden`} key={index}>
