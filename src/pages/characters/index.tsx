@@ -7,7 +7,7 @@ const Characters: NextPage = () => {
   return (
     <div className="min-h-screen h-full w-full flex">
       <Header />
-      
+
       <PageCharacters />
     </div>
   )
