@@ -53,9 +53,8 @@ export function PageHome() {
               ) : (
                 <>
                   {characters?.map((character, index) => (
-                    <Link href={`characters/${character.id}`} passHref>
-
-                      <div className={`flex relative w-full h-56 flex-col gap-2 rounded-md overflow-hidden`} key={index}>
+                    <Link href={`characters/${character.id}`} passHref  key={index}>
+                      <div className={`flex relative w-full h-56 flex-col gap-2 rounded-md overflow-hidden`}>
                         <span className="opacity-20 transition-opacity hover:opacity-100 z-10 w-full h-full bg-black/25 text-white text-bold text-2xl text-center p-4 flex items-center justify-center">{character.name}</span>
                         <img className="w-full h-full object-cover absolute z-0" src={`${character.thumbnail.path}.${character.thumbnail.extension}`}/>
                       </div>
