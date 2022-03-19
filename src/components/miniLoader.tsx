@@ -11,20 +11,14 @@ const pathVariants = {
   hidden: {
     opacity: 0,
     pathLength: 0,
-    strokeWidth: 0,
-    stroke: "transparent",
-    strokeDasharray: "0px 0px"
   },
   visible: {
-    strokeWidth: 2,
-    stroke: "#000",
-    strokeDasharray: "1px 1px",
-    opacity: [1, 1],
-    fill: ['#fcfbfb00', '#fcfbfb00', '#fcfbfb00', "#fcfbfb"],
+    opacity: 1,
     pathLength: 1,
     transition: {
       duration: 2,
-      ease: "easeInOut"
+      ease: "easeInOut",
+      repeat: Infinity
     }
   }
 }
