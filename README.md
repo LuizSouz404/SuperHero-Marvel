@@ -1,34 +1,60 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center">
+	<img alt="Logo" height="300px" src="./public/logo.png" />
+  <br>
+  <br>
+  Marvel API Website
+</h1>
 
-## Getting Started
+<h3 align="center">
+  Acervo Marvel made with Tailwind
+</h3>
 
-First, run the development server:
+<p align="center">Projeto realizado com NextJS + Tailwind.</p>
+
+<p align="center">
+  <a href="#-sobre-o-repositorio">👨🏻‍💻 Sobre o repositorio</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-tecnologias">🚀 Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-começando">💻 Começando</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-licença">📝 Licença</a>
+</p>
+
+<br>
+
+<img alt="Layout" src="./public/home.png">
+
+<img alt="Layout" src="./public/design.svg">
+<br>
+
+## 👨🏻‍💻 Sobre o repositorio
+
+Resumo do projeto no [figma](https://www.figma.com/file/HgKF7fQTwu5yWq7D56hrJH/MarvelAPI?node-id=24%3A2)
+
+## 🚀 Tecnologias
+
+As tecnologias utilizadas nesse projeto foram:
+
+![Nextjs](https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![Figma](https://img.shields.io/badge/Figma-2C2C2C?style=for-the-badge&logo=figma&logoColor=white)
+
+
+## 💻 Começando
+
+**Clone o projeto e instale todas as dependências**
 
 ```bash
-npm run dev
-# or
-yarn dev
+$ git clone https://github.com/LuizSouz404/SuperHero-Marvel.git
+
+$ yarn
+
+$ yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📝 Licença
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Esse Projeto está sob a licença MIT - Veja o arquivo para detalhes [LICENSE](LICENSE)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+---
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Made with 💜 &nbsp;by Luiz Souza 👋 &nbsp;[See my linkedin](https://www.linkedin.com/in/luiz-augusto-souza-21a568176/)
